@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St John Bosco</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #081426;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            background: #101f36;
+            padding: 25px;
+            border-bottom: 3px solid gold;
+        }
+
+        h1, h2 {
+            color: #f5cc60;
+        }
+
+        nav {
+            padding: 15px;
+            background: #152640;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        nav a:hover {
+            color: gold;
+        }
+
+        section {
+            padding: 35px 20px;
+            max-width: 800px;
+            margin: auto;
+            animation: appear 1s;
+        }
+
+        .card {
+            background: #152640;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border: 1px solid #b89b46;
+        }
+
+        button {
+            background: #f5cc60;
+            color: #081426;
+            padding: 12px 20px;
+            margin: 8px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: white;
+        }
+
+        #feedback {
+            color: #f5cc60;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #101f36;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>St John Bosco</h1>
+    <p>A life dedicated to helping young people</p>
+</header>
+
+<nav>
+    <a href="#about">About</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#quiz">Quiz</a>
+</nav>
+
+<section id="about">
+    <h2>Who Was St John Bosco?</h2>
+    <div class="card">
+        <p>
+            St John Bosco was an Italian Catholic priest who dedicated
+            his life to educating and supporting young people,
+            especially those who were poor or disadvantaged.
+        </p>
+        <p>
+            He believed that young people needed kindness, guidance,
+            education and faith to help them succeed in life.
+        </p>
+    </div>
+</section>
+
+<section id="timeline">
+    <h2>His Life Timeline</h2>
+
+    <div class="card">
+        <h3>1815 — His Birth</h3>
+        <p>John Bosco was born in Becchi, Italy, on 16 August.</p>
+    </div>
+
+    <div class="card">
+        <h3>1841 — Became a Priest</h3>
+        <p>He was ordained as a Catholic priest.</p>
+    </div>
+
+    <div class="card">
+        <h3>1846 — Helping Young People</h3>
+        <p>He established his work with young people in Valdocco, Turin.</p>
+    </div>
+
+    <div class="card">
+        <h3>1859 — The Salesians</h3>
+        <p>He founded the Salesian Society to continue his mission.</p>
+    </div>
+
+    <div class="card">
+        <h3>1934 — Became a Saint</h3>
+        <p>Pope Pius XI declared him a saint.</p>
+    </div>
+</section>
+
+<section id="quiz">
+    <h2>Test Your Knowledge!</h2>
+    <p>Answer all 10 questions and see your final score.</p>
+
+    <div class="card">
+        <h3 id="question">Question appears here</h3>
+        <div id="answers"></div>
+        <p id="feedback"></p>
+        <p id="progress"></p>
+        <button id="next" onclick="nextQuestion()" hidden>
+            Next Question
+        </button>
+    </div>
+</section>
+
+<footer>
+    <p>St John Bosco — Faith, Education and Kindness</p>
+</footer>
+
+<script>
+    const questions = [
+        {
+            q: "In which country was John Bosco born?",
+            a: ["France", "Italy", "Spain", "England"],
+            correct: 1
+        },
+        {
+            q: "In which year was he born?",
+            a: ["1815", "1900", "1841", "1799"],
+            correct: 0
+        },
+        {
+            q: "What was his main mission?",
+            a: ["To become a king", "To lead an army",
+                "To help young people", "To explore the world"],
+            correct: 2
+        },
+        {
+            q: "In which year was he ordained a priest?",
+            a: ["1815", "1841", "1859", "1934"],
+            correct: 1
+        },
+        {
+            q: "What was the name of the religious society he founded?",
+            a: ["The Jesuits", "The Franciscans",
+                "The Salesians", "The Benedictines"],
+            correct: 2
+        },
+        {
+            q: "What was his mother's name?",
+            a: ["Maria Mazzarello", "Margherita Occhiena",
+                "Teresa of Avila", "Clare of Assisi"],
+            correct: 1
+        },
+        {
+            q: "In which Italian city did he work in Valdocco?",
+            a: ["Rome", "Venice", "Turin", "Naples"],
+            correct: 2
+        },
+        {
+            q: "Which values were important to Don Bosco?",
+            a: ["Kindness and education", "Fame and wealth",
+                "Power and control", "Winning at all costs"],
+            correct: 0
+        },
+        {
+            q: "In which year did John Bosco die?",
+            a: ["1815", "1841", "1888", "1934"],
+            correct: 2
+        },
+        {
+            q: "In which year was he declared a saint?",
+            a: ["1859", "1888", "1920", "1934"],
+            correct: 3
+        }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    function showQuestion() {
+        answered = false;
+
+        document.getElementById("question").textContent =
+            questions[current].q;
+
+        document.getElementById("answers").innerHTML = "";
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("progress").textContent =
+            "Question " + (current + 1) + " of " + questions.length;
+
+        document.getElementById("next").hidden = true;
+
+        questions[current].a.forEach(function(answer, index) {
+            let button = document.createElement("button");
+
+            button.textContent = answer;
+            button.onclick = function() {
+                checkAnswer(index);
+            };
+
+            document.getElementById("answers").appendChild(button);
+        });
+    }
+
+    function checkAnswer(choice) {
+        if (answered) return;
+
+        answered = true;
+
+        if (choice === questions[current].correct) {
+            score++;
+            document.getElementById("feedback").textContent =
+                "Correct! Well done!";
+        } else {
+            document.getElementById("feedback").textContent =
+                "Not quite! The correct answer was: " +
+                questions[current].a[questions[current].correct];
+        }
+
+        document.querySelectorAll("#answers button").forEach(function(button) {
+            button.disabled = true;
+        });
+
+        document.getElementById("next").hidden = false;
+
+        if (current === questions.length - 1) {
+            document.getElementById("next").textContent = "See My Score";
+        }
+    }
+
+    function nextQuestion() {
+        current++;
+
+        if (current < questions.length) {
+            showQuestion();
+        } else {
+            document.getElementById("question").textContent =
+                "Quiz Complete!";
+
+            document.getElementById("answers").innerHTML = "";
+
+            document.getElementById("feedback").textContent =
+                "You scored " + score + " out of " + questions.length + "!";
+
+            document.getElementById("progress").textContent =
+                score === 10 ? "Amazing! You know your Bosco history!" :
+                score >= 7 ? "Great work! Nearly there!" :
+                "Good effort! Keep learning about St John Bosco.";
+
+            document.getElementById("next").textContent = "Try Again";
+            document.getElementById("next").onclick = restartQuiz;
+        }
+    }
+
+    function restartQuiz() {
+        current = 0;
+        score = 0;
+
+        document.getElementById("next").textContent = "Next Question";
+        document.getElementById("next").onclick = nextQuestion;
+
+        showQuestion();
+    }
+
+    showQuestion();
+</script>
+
+</body>
+</html>
